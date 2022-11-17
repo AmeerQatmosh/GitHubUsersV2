@@ -1,47 +1,50 @@
 import React, { useEffect, useState } from "react";
 import {Text,StyleSheet,ScrollView,Image,SafeAreaView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ShowUserList from "./HomePage";
 
 export default function ShowUserProfile (props){
+  const [state, setState] = useState({ showDefault: true, error: false })
+  const {id,login,avatar_url,node_id,gravatar_id,type,site_admin,events_url,followers_url,
+    following_url,gists_url,html_url,organizations_url,received_events_url,repos_url,starred_url,subscriptions_url,url} = props.route.params.user
+  var image = state.showDefault ? require('./assets/avater-placeholder.png') : ({uri: avatar_url });
+
   return(
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Image
           style={styles.image}
-          source={{uri: props.route.params.item.user.avatar_url}}
+          source={image}
+          onLoadEnd={() => setState({showDefault: false})}
         />  
-        <Text style={{textAlign: 'center',fontSize: 20,fontFamily: 'monospace',color: 'black'}} > {props.route.params.item.user.login}</Text>
+        <Text style={{textAlign: 'center',fontSize: 20,fontFamily: 'monospace',color: 'black'}} > {login}</Text>
         
-        <Text style={styles.text} > <Text style={styles.bold}>ID:</Text> {props.route.params.item.user.id}</Text>
-        <Text style={styles.text} > <Text style={styles.bold}>Login: </Text>{props.route.params.item.user.login}</Text>
-        <Text style={styles.text} > <Text style={styles.bold}>Node ID: </Text>{props.route.params.item.user.node_id}</Text>
-        <Text style={styles.text} > <Text style={styles.bold}>Gravatar ID:</Text> {props.route.params.item.user.gravatar_id}</Text>
-        <Text style={styles.text} > <Text style={styles.bold}>Type:</Text> {props.route.params.item.user.type}</Text>
-        <Text style={styles.text} > <Text style={styles.bold}>Site Admin:</Text> {props.route.params.item.user.site_admin.toString()}</Text>
-        <Text style={styles.bold}>Events URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.events_url}</Text>
-        <Text style={styles.bold}>Followers URL:</Text> 
-        <Text style={styles.text} >{props.route.params.item.user.followers_url}</Text>
-        <Text style={styles.bold}>Following URL: </Text>
-        <Text style={styles.text} >{props.route.params.item.user.following_url}</Text>
-        <Text style={styles.bold}>Gists URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.gists_url}</Text>
-        <Text style={styles.bold}>HTML URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.html_url}</Text>
-        <Text style={styles.bold}>Organizations URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.organizations_url}</Text>
-        <Text style={styles.bold}>Received Events URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.received_events_url}</Text>
-        <Text style={styles.bold}>Repos URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.repos_url}</Text>
-        <Text style={styles.bold}>Starred URL: </Text>
-        <Text style={styles.text} >{props.route.params.item.user.starred_url}</Text>
-        <Text style={styles.bold}>Subscriptions URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.subscriptions_url}</Text>
-        <Text style={styles.bold}>URL:</Text>
-        <Text style={styles.text} >{props.route.params.item.user.url}</Text>
+        <Text style={styles.text} > <Text style={styles.bold}>ID:</Text> {id}</Text>
+        <Text style={styles.text} > <Text style={styles.bold}>Login: </Text>{login}</Text>
+        <Text style={styles.text} > <Text style={styles.bold}>Node ID: </Text>{node_id}</Text>
+        <Text style={styles.text} > <Text style={styles.bold}>Gravatar ID:</Text> {gravatar_id}</Text>
+        <Text style={styles.text} > <Text style={styles.bold}>Type:</Text> {type}</Text>
+        <Text style={styles.text} > <Text style={styles.bold}>Site Admin:</Text> {site_admin.toString()}</Text>
+        <Text style={styles.bold} > Events URL:</Text>
+        <Text style={styles.text} > {events_url}</Text>
+        <Text style={styles.bold} > Followers URL:</Text> 
+        <Text style={styles.text} > {followers_url}</Text>
+        <Text style={styles.bold} > Following URL: </Text>
+        <Text style={styles.text} > {following_url}</Text>
+        <Text style={styles.bold} > Gists URL:</Text>
+        <Text style={styles.text} > {gists_url}</Text>
+        <Text style={styles.bold} > HTML URL:</Text>
+        <Text style={styles.text} > {html_url}</Text>
+        <Text style={styles.bold} > Organizations URL:</Text>
+        <Text style={styles.text} > {organizations_url}</Text>
+        <Text style={styles.bold} > Received Events URL:</Text>
+        <Text style={styles.text} > {received_events_url}</Text>
+        <Text style={styles.bold} > Repos URL:</Text>
+        <Text style={styles.text} > {repos_url}</Text>
+        <Text style={styles.bold} > Starred URL: </Text>
+        <Text style={styles.text} > {starred_url}</Text>
+        <Text style={styles.bold} > Subscriptions URL:</Text>
+        <Text style={styles.text} > {subscriptions_url}</Text>
+        <Text style={styles.bold} > URL:</Text>
+        <Text style={styles.text} > {url}</Text>
     </ScrollView>
     </SafeAreaView>
   )

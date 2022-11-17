@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {Text,View,StyleSheet,ScrollView,Image,TouchableOpacity,Button, Pressable,TouchableHighlight} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ShowUserProfile from "./UserProfile";
+import {Text,View,StyleSheet,ScrollView,Image,Button} from 'react-native';
 
-export default function ShowUserList ({ navigation, route }){
+export default function ShowUserList ({ navigation, route },props){
 
   const [data, setData] = useState([]);
-  const [state, setState] = useState([]);
-
   const [loading, setLoading] = useState(true);
-
+  const [state, setState] = useState({ showDefault: true, error: false })
   const url = "https://api.github.com/users";
 
   useEffect(()=> {
@@ -20,16 +15,17 @@ export default function ShowUserList ({ navigation, route }){
     .catch((error)=>console.log(error))
     .finally(()=>setLoading(false));
   },[])
-    // state = { showDefault: true, error: false };
-  // var image = showDefault ? require('./assets/avatar.png') : ( { uri: user.avatar_url } );
   return(
     <ScrollView>
         <View style={styles.container}>
           {loading ? (<Text>loading</Text>) : (data.map((user)=> 
           <View key={user.id} style={styles.item}>
-          <Image source={{uri: user.avatar_url}} style={styles.image} />
+          <Image 
+          source={state.showDefault ? require('./assets/avater-placeholder.png') : ({uri: user.avatar_url})} 
+          style={styles.image} 
+          onLoadEnd={() => setState({showDefault: false})}/>
           <Text style={styles.text}>{user.login}</Text> 
-          <Button title='more Info' style={styles.card} onPress={() => navigation.navigate('Profile', {item: {user}})} />
+          <Button title='more Info' style={styles.card} onPress={() => navigation.navigate('Profile', {user})} />
         </View>
         )
       )}
